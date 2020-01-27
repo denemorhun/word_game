@@ -1,0 +1,226 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: rgb(182, 252, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 212, 255, 1) 20%,
+    rgba(96, 209, 226, 1) 49%,
+    rgba(182, 252, 255, 1) 100%
+  );
+  overflow: hidden;
+}
+
+.message {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%);
+  animation: fadeIn 0.7s;
+}
+
+.message-fadeout {
+  animation: fadeOut 0.7s;
+}
+
+.message h1 {
+  font-size: 4em;
+  color: white;
+  -webkit-text-stroke: 2px #aaa;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+
+.message h2 {
+  font-size: 1em;
+  color: #888;
+  margin-bottom: 100px;
+}
+
+.start-button {
+  background-color: red;
+  color: white;
+  font-size: 2em;
+  border: 3px solid white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.start-button:hover {
+  background-color: darkred;
+  cursor: pointer;
+  translate: -10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.game-board {
+  width: 80vw;
+  height: 80vh;
+  position: relative;
+  margin: auto;
+  color: white;
+}
+
+.word {
+  color: yellow;
+}
+
+.timer {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  width: 90vw;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  border: 4px solid black;
+  border-radius: 4px;
+  background-color: rgba(64, 64, 64, 0.5);
+  text-align: left;
+}
+
+.timer-bar {
+  display: inline-block;
+  background-color: lime;
+  height: 100%;
+  left: 0;
+  transition: 0.3s linear;
+  border-right: 3px solid black;
+}
+
+.game-over {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  margin: auto;
+  transform: translate(-50%, -50%);
+}
+
+.game-over h1 {
+  font-size: 6em;
+  color: white;
+  -webkit-text-stroke: 2px #000;
+}
+
+.game-over h2 {
+  color: #666;
+  padding-bottom: 20px;
+}
+
+.game-over-animatation {
+  animation: fadeInAndScale 1.5s linear;
+}
+
+.letter {
+  position: absolute;
+  font-size: 10em;
+  min-width: 2em;
+  text-shadow: 0 0 6px #000;
+  -webkit-text-stroke: 2px #000;
+  animation: wiggle 3s infinite;
+  cursor: pointer;
+}
+
+.letter-spin {
+  animation: spin 0.3s linear 3;
+}
+
+.letter-fade {
+  animation: fadeOutAndScale 0.6s linear;
+}
+
+.ground {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  background-image: url("/ground.png");
+  background-size: auto;
+  width: 100vw;
+  height: 95px;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(0.95) rotate(15deg);
+  }
+  50% {
+    transform: scale(0.9) rotate(0deg);
+  }
+  75% {
+    transform: scale(0.95) rotate(-15deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(2) rotate(180deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutAndScale {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeInAndScale {
+  0% {
+    transform: scale(0.2) translate(0, -300px);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .message {
+    top: 10%;
+  }
+  .letter {
+    font-size: 4em;
+  }
+}

@@ -12,7 +12,7 @@ class Letter extends Component {
 
    constructor(props) {
       super(props);
-      this.state.x = Math.floor(Math.random() * 90) + 5;
+      this.state.x = Math.floor(Math.random() * 80) + 10;
       this.state.y = Math.floor(Math.random() * 70) + 10;
    }
 

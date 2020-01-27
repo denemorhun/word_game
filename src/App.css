@@ -9,12 +9,11 @@
   height: 100vh;
   margin: 0;
   padding: 0;
-  background: rgb(182, 252, 255);
+  background: rgb(238, 174, 202);
   background: linear-gradient(
     0deg,
-    rgba(0, 212, 255, 1) 20%,
-    rgba(96, 209, 226, 1) 49%,
-    rgba(182, 252, 255, 1) 100%
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
   );
   overflow: hidden;
 }
@@ -46,7 +45,7 @@
 }
 
 .start-button {
-  background-color: red;
+  background-color: #9575cd;
   color: white;
   font-size: 2em;
   border: 3px solid white;
@@ -55,7 +54,7 @@
 }
 
 .start-button:hover {
-  background-color: darkred;
+  background-color: #673ab7;
   cursor: pointer;
   translate: -10px;
   transition: all 0.3s ease-in-out;
@@ -126,6 +125,9 @@
   -webkit-text-stroke: 2px #000;
   animation: wiggle 3s infinite;
   cursor: pointer;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
 }
 
 .letter-spin {
@@ -143,35 +145,43 @@
   background-image: url("/ground.png");
   background-size: auto;
   width: 100vw;
-  height: 95px;
+  height: 64px;
 }
 
 @keyframes wiggle {
   0% {
+    -webkit-transform: scale(1) rotate(0deg);
     transform: scale(1) rotate(0deg);
   }
   25% {
+    -webkit-transform: scale(0.95) rotate(15deg);
     transform: scale(0.95) rotate(15deg);
   }
   50% {
+    -webkit-transform: scale(0.9) rotate(0deg);
     transform: scale(0.9) rotate(0deg);
   }
   75% {
+    -webkit-transform: scale(0.95) rotate(-15deg);
     transform: scale(0.95) rotate(-15deg);
   }
   100% {
+    -webkit-transform: scale(1) rotate(0deg);
     transform: scale(1) rotate(0deg);
   }
 }
 
 @keyframes spin {
   0% {
+    -webkit-transform: scale(1) rotate(0deg);
     transform: scale(1) rotate(0deg);
   }
   50% {
+    -webkit-transform: scale(2) rotate(180deg);
     transform: scale(2) rotate(180deg);
   }
   100% {
+    -webkit-transform: scale(1) rotate(360deg);
     transform: scale(1) rotate(360deg);
   }
 }
@@ -196,10 +206,12 @@
 
 @keyframes fadeOutAndScale {
   0% {
+    -webkit-transform: scale(1);
     transform: scale(1);
     opacity: 1;
   }
   100% {
+    -webkit-transform: scale(0.2);
     transform: scale(0.2);
     opacity: 0.2;
   }
@@ -207,10 +219,12 @@
 
 @keyframes fadeInAndScale {
   0% {
+    -webkit-transform: scale(0.2) translate(0, -300px);
     transform: scale(0.2) translate(0, -300px);
     opacity: 0.2;
   }
   100% {
+    -webkit-transform: scale(1) translate(-50%, -50%);
     transform: scale(1) translate(-50%, -50%);
     opacity: 1;
   }

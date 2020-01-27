@@ -1,6 +1,5 @@
 import React from 'react';
 import GameBoard from './GameBoard';
-import wordList from '../wordList';
 import Message from './Message';
 
 const states = {
@@ -14,10 +13,12 @@ const states = {
 class Game extends React.Component {
    state = {
       gameState: states.INITIALIZED,
-      word: null,
+      letters: null,
       score: 0,
       level: 0
    };
+
+   letters = 'oecbpdq'.split('');
 
    constructor() {
       super();
@@ -25,13 +26,21 @@ class Game extends React.Component {
       this.refStartMessage = React.createRef();
    }
 
-   selectWord = (userLevel = null) => {
-      const level = Math.min(
-         wordList.length - 1,
-         userLevel ? userLevel : this.state.level
-      );
-      const random = Math.floor(Math.random() * wordList[level].length);
-      return wordList[level][random];
+   selectLetters = (userLevel = null) => {
+      const level = Math.min(20, this.state.level + 2);
+      const random = Math.floor(Math.random() * this.letters.length);
+      const letterToFind = this.letters[random];
+      const remainingLetters = this.letters.slice();
+      remainingLetters.splice(random, 1);
+      let selectedLetters = [letterToFind];
+      for (let i = 1; i < level; i++) {
+         selectedLetters.push(
+            remainingLetters[
+               Math.floor(Math.random() * remainingLetters.length)
+            ]
+         );
+      }
+      return selectedLetters;
    };
 
    startGame = () => {
@@ -43,7 +52,7 @@ class Game extends React.Component {
    startLevel = () => {
       this.setState({
          gameState: states.STARTING,
-         word: this.selectWord()
+         letters: this.selectLetters()
       });
    };
 
@@ -68,8 +77,7 @@ class Game extends React.Component {
       this.setState({
          gameState: states.WON_LEVEL,
          level: nextLevel,
-         word: this.selectWord(nextLevel),
-         score: this.state.score + score
+         score: this.state.score + score * 100
       });
    };
 
@@ -85,9 +93,9 @@ class Game extends React.Component {
             <Message ref={this.refStartMessage}>
                <h1>
                   <p>GAME OF</p>
-                  <p>WORDS</p>
+                  <p>LETTERS</p>
                </h1>
-               <h2>A Game of Reflexes and Spelling</h2>
+               <h2>A Game to Master the Letters</h2>
                <div>
                   <button
                      className="start-button"
@@ -103,7 +111,8 @@ class Game extends React.Component {
          this.state.gameState === states.STARTING ? (
             <Message hideAfter={2000} onHidden={this.startGame}>
                <h1>
-                  The word is <span className="word">{this.state.word}</span>
+                  Find the letter{' '}
+                  <span className="word">{this.state.letters[0]}</span>
                </h1>
                <h2>
                   <p>Score: {this.state.score}</p>
@@ -115,7 +124,7 @@ class Game extends React.Component {
       const winLevelMessage =
          this.state.gameState === states.WON_LEVEL ? (
             <Message hideAfter={2000} onHidden={this.startLevel}>
-               <h1>NICE!</h1>
+               <h1>GOOD WORK!</h1>
                <h2>
                   <p>Score: {this.state.score}</p>
                   <p>Level: {this.state.level + 1}</p>
@@ -126,7 +135,7 @@ class Game extends React.Component {
       const gameOver =
          this.state.gameState === states.GAME_OVER ? (
             <div className="game-over game-over-animatation">
-               <h1>Game Over</h1>
+               <h1>Please Try Again</h1>
                <h2>
                   <p>Score: {this.state.score}</p>
                   <p>Level: {this.state.level + 1}</p>
@@ -145,7 +154,7 @@ class Game extends React.Component {
             <GameBoard
                gameStarted={this.state.gameState === states.STARTED}
                ref={this.refGameBoard}
-               word={this.state.word}
+               letters={this.state.letters}
                onWinLevel={this.handleWinLevel}
                onGameOver={this.handleGameOver}
             ></GameBoard>

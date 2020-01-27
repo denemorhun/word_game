@@ -13,12 +13,11 @@ class GameBoard extends React.Component {
    constructor(props) {
       super(props);
       this.timer = React.createRef();
-      console.log(this.props);
    }
 
    componentDidMount() {
       const letterRefs = [];
-      let letters = this.props.word.split('').map((char, i) => {
+      let letters = this.props.letters.map((char, i) => {
          const ref = React.createRef();
          letterRefs.push(ref);
          return (
@@ -53,25 +52,25 @@ class GameBoard extends React.Component {
    };
 
    handleLetterClicked = (letter, component) => {
-      if (letter !== this.props.word[this.state.charIndex]) {
+      if (letter !== this.props.letters[this.state.charIndex]) {
          component.spin();
          return;
       }
 
       component.hide();
 
-      const charIndex = this.state.charIndex + 1;
-      if (charIndex >= this.props.word.length) {
-         this.winLevel();
-      } else {
-         this.setState({
-            charIndex
-         });
-      }
+      // const charIndex = this.state.charIndex + 1;
+      // if (charIndex >= this.props.letters.length) {
+      this.winLevel();
+      // } else {
+      //    this.setState({
+      //       charIndex
+      //    });
+      // }
    };
 
    render() {
-      const timeLimit = this.props.word.length + 1;
+      const timeLimit = this.props.letters.length + 1;
 
       return (
          <React.Fragment>

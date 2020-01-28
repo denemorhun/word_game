@@ -70,6 +70,7 @@
 
 .word {
   color: yellow;
+  margin-left: 0.3em;
 }
 
 .timer {
@@ -128,6 +129,7 @@
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .letter-spin {

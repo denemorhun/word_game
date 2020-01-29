@@ -16,6 +16,9 @@
     rgba(148, 187, 233, 1) 100%
   );
   overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .message {
@@ -70,7 +73,6 @@
 
 .word {
   color: yellow;
-  margin-left: 0.3em;
 }
 
 .timer {
@@ -127,9 +129,6 @@
   animation: wiggle 3s infinite;
   cursor: pointer;
   user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .letter-spin {
@@ -148,6 +147,33 @@
   background-size: auto;
   width: 100vw;
   height: 64px;
+}
+
+.languages {
+  margin: 200px;
+  color: #888;
+  font-size: 1.5em;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 128, 0.8);
+  width: 200px;
+  overflow: hidden;
+}
+
+.languages ul {
+  list-style: none;
+}
+
+.languages li {
+  padding: 4px 20px;
+  cursor: pointer;
+}
+
+.languages li[data-active] {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 @keyframes wiggle {
@@ -238,5 +264,16 @@
   }
   .letter {
     font-size: 4em;
+  }
+  .game-over h1 {
+    font-size: 4em;
+  }
+  .encouragement {
+    font-size: 2.5em !important;
+  }
+  .languages {
+    width: 100px;
+    margin-top: 80px;
+    font-size: 1em;
   }
 }

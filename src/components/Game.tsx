@@ -1,7 +1,9 @@
 import React, { Component, RefObject } from "react";
 import GameBoard from "./GameBoard";
 import Message from "./Message";
-import { States, LETTERS, ENCOURAGEMENTS, MIN_LETTERS } from "../gameConsts";
+import { States, LETTERS, MIN_LETTERS } from "../gameConsts";
+import i18n from "../i18n";
+import LanguagePicker from "./LanguagePicker";
 
 interface Props {}
 
@@ -10,7 +12,8 @@ class Game extends Component<Props> {
     gameState: States.Initialized,
     letters: [],
     score: 0,
-    level: 0
+    level: 0,
+    language: "en"
   };
 
   startMessageRef: RefObject<Message>;
@@ -18,6 +21,12 @@ class Game extends Component<Props> {
   constructor(props: Props) {
     super(props);
     this.startMessageRef = React.createRef();
+
+    let lang = localStorage.getItem("language");
+    if (lang) {
+      this.state.language = lang;
+      i18n.changeLanguage(lang);
+    }
   }
 
   randomizeLetters = () => {
@@ -78,38 +87,65 @@ class Game extends Component<Props> {
     });
   };
 
+  handleLanguageChanged = (language: string) => {
+    localStorage.setItem("language", language);
+    i18n.changeLanguage(language, () => {
+      this.setState({
+        language
+      });
+    });
+  };
+
   getComponentToShow = () => {
     switch (this.state.gameState) {
       case States.Initialized:
         return (
           <Message ref={this.startMessageRef} onHidden={this.startLevel}>
             <h1>
-              <p>GAME OF</p>
-              <p>LETTERS</p>
+              <p>{i18n.t("main.title1")}</p>
+              <p>{i18n.t("main.title2")}</p>
             </h1>
-            <h2>A Game to Master the Letters</h2>
+            <h2>{i18n.t("main.subtitle")}</h2>
             <div>
               <button
                 className="start-button"
                 onClick={this.handleStartButtonClick}
               >
-                Start Game
+                {i18n.t("main.start")}
               </button>
             </div>
+            <LanguagePicker
+              language={this.state.language}
+              onChange={this.handleLanguageChanged}
+            ></LanguagePicker>
           </Message>
         );
 
       case States.Starting:
+        let rightToLeft = ["tr"].indexOf(i18n.language) !== -1;
+        let findMsg = rightToLeft ? (
+          <React.Fragment>
+            <span className="word">{this.state.letters[0]} </span>
+            {i18n.t("start.find")}
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            {i18n.t("start.find")}
+            <span className="word"> {this.state.letters[0]}</span>
+          </React.Fragment>
+        );
+
         return (
           <React.Fragment>
             <Message hideAfterMs={2000} onHidden={this.startGame}>
-              <h1>
-                Find the letter
-                <span className="word">{this.state.letters[0]}</span>
-              </h1>
+              <h1>{findMsg}</h1>
               <h2>
-                <p>Level: {this.state.level + 1}</p>
-                <p>Score: {this.state.score}</p>
+                <p>
+                  {i18n.t("start.level")} {this.state.level + 1}
+                </p>
+                <p>
+                  {i18n.t("start.score")} {this.state.score}
+                </p>
               </h2>
             </Message>
           </React.Fragment>
@@ -125,14 +161,17 @@ class Game extends Component<Props> {
         );
 
       case States.WonLevel:
-        const encourgement =
-          ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)];
+        const encourgement = `encouragements.${Math.floor(Math.random() * 9)}`;
         return (
           <Message hideAfterMs={2000} onHidden={this.startLevel}>
-            <h1>{encourgement}!</h1>
+            <h1 className="encouragement">{i18n.t(encourgement)}!</h1>
             <h2>
-              <p>Level: {this.state.level + 1}</p>
-              <p>Score: {this.state.score}</p>
+              <p>
+                {i18n.t("start.level")} {this.state.level + 1}
+              </p>
+              <p>
+                {i18n.t("start.score")} {this.state.score}
+              </p>
             </h2>
           </Message>
         );
@@ -140,13 +179,17 @@ class Game extends Component<Props> {
       case States.GameOver:
         return (
           <div className="game-over game-over-animatation">
-            <h1>Please Try Again</h1>
+            <h1>{i18n.t("gameOver.tryAgain")}</h1>
             <h2>
-              <p>Level: {this.state.level + 1}</p>
-              <p>Score: {this.state.score}</p>
+              <p>
+                {i18n.t("start.level")} {this.state.level + 1}
+              </p>
+              <p>
+                {i18n.t("start.score")} {this.state.score}
+              </p>
             </h2>
             <button className="start-button" onClick={this.handleOKButtonClick}>
-              OK
+              {i18n.t("gameOver.ok")}
             </button>
           </div>
         );

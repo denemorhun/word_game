@@ -1,3 +1,3 @@
-## Game of Words
+## Game of Letters
 
-A simple game to test your reflexes and spelling. You are given a word and you must click on each letter of the word in the correct order as fast as you can.
+A simple game for children with dyslexia to help them recognize commonly mistaken letters. To try the live game, go to <a href="http://games.rishengx.com" target="_blank">http://games.rishengx.com</a>

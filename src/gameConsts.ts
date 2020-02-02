@@ -6,7 +6,7 @@ export enum States {
   GameOver
 }
 
-export const LETTERS = ["o", "e", "c", "b", "p", "d", "q"];
+export const LETTERS = ["n", "u", "M", "W", "b", "p", "d", "q", ];
 
 export const MIN_LETTERS = 2;
 
